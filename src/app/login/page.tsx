@@ -1,16 +1,32 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
+import Router, { useRouter } from "next/navigation";
 
 
 export default function LoginPage(){
+    const router=useRouter();
+    const [errorMessage, setErrorMessage] = React.useState("");
+
 
     const [user, setUser]=React.useState({
                 email:"",
                 password:"",
                 username:""
             })
-    function handleLogin(){
+    async function handleLogin(){
+        try{
+            console.log("login data sent")
+            const response =await axios.post("/api/login",user)
+            console.log("logged in successfully")
+            router.push("/profile")
+
+        }
+        catch(error){
+            console.error("Error occurred while sending user data:", error);
+            setErrorMessage("Invalid email or password");
+        }
 
     }
 
@@ -40,6 +56,9 @@ export default function LoginPage(){
                 >
                     Login
                 </button>
+
+                {errorMessage? <p className="text-red-500">{errorMessage}</p> : null}
+
                 <Link href="/signup">
                     <p className="text-white underline">Don't have an account? Sign up here</p>
                 </Link>

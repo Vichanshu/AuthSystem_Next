@@ -1,17 +1,26 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage(){
+    const router = useRouter();
 
     const [user, setUser]=React.useState({
                 email:"",
                 password:"",
                 username:""
             })
-    function handleSignUp(){
-
+    async function handleSignUp(){
+        try{
+            const response = await axios.post("/api/signup",user);
+            console.log("User data sent to /api/signup:", user);
+            router.push("/profile")
+        }
+        catch(error){
+            console.error("Error occurred while sending user data:", error);
+        }
     }
 
     return (
