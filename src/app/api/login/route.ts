@@ -32,7 +32,7 @@ export async function POST(request:NextRequest){
     if(!validPassword){
         return NextResponse.json({error:"Incorrect password entered"},{status:400})
     }
-    console.log("User authenticated successfully:", user);
+    // console.log("User authenticated successfully:", user);
     //create Token
 
     const tokenData={
@@ -43,10 +43,14 @@ export async function POST(request:NextRequest){
 
     const token =await jwt.sign(tokenData,process.env.JWT_SECRET_KEY!,{expiresIn:"1d"})
 
-    console.log("Generated token:", token);
+    // console.log("Generated token:", token);
 
     const response = NextResponse.json(
-        {message:"Login successful"},
+        {
+            message:"Login successful",
+            username:user.username
+
+        },
         {status:200}
     )
 

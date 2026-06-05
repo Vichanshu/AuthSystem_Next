@@ -20,7 +20,9 @@ export default function LoginPage(){
             console.log("login data sent")
             const response =await axios.post("/api/login",user)
             console.log("logged in successfully")
-            router.push("/profile")
+            console.log(response.data)
+            console.log(`pushing user to /profile/${response.data.username}`)
+            router.push(`/profile/${response.data.username}`)
 
         }
         catch(error){

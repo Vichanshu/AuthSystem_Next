@@ -2,6 +2,7 @@ import { NextRequest,NextResponse } from "next/server";
 import mongoose from "mongoose";
 import User from "@/models/userModel";
 import bcrypt from "bcryptjs";
+import mailer from "@/helper/mailer";
 import connectToDatabase from "@/dbConfig/connection";
 connectToDatabase()
 
@@ -29,6 +30,8 @@ export async function POST(request:NextRequest){
         })
 
         const savedUser = newUser.save()
+
+        mailer(email,"VERIFY",username)
 
         return NextResponse.json({
             "message":"user created successfully",
