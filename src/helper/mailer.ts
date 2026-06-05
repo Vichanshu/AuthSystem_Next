@@ -34,7 +34,7 @@ try {
     from: '"Flushvichi" <contact.vichanshu@gmail.com>', // sender address
     to: email, // list of recipients
     subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password", // subject line
-    html: emailType === "VERIFY" ? `<p>Hi ${userName}, please click on the link to verify your email:</p><p><a href="http://localhost:3000/api/verifymail?token=${encodedEmailToken}">Verify Email</a></p>` : `<p>Hi ${userName}, please click on the link to reset your password:</p><p><a href="http://localhost:3000/reset-password?token=${encodedEmailToken}">Reset Password</a></p>`, // HTML body
+    html: emailType === "VERIFY" ? `<p>Hi ${userName}, please click on the link to verify your email:</p><p><a href="${process.env.DOMAIN}/api/verifymail?token=${encodedEmailToken}">Verify Email</a></p>` : `<p>Hi ${userName}, please click on the link to reset your password:</p><p><a href="${process.env.DOMAIN}/reset-password?token=${encodedEmailToken}">Reset Password</a></p>`, // HTML body
   });
 
   console.log("Email sent: %s", info.messageId);
